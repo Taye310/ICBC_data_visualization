@@ -6,14 +6,9 @@ ICBC暑期线上实习数据可视化项目
 
 ```git clone https://github.com/Taye310/ICBC_data_visualization.git```
 
-```npm install```
+open index.html in ur browser.  
 
-```webpack index.js```
-
-Open index.html in ur browser.  
-or  
-```node server.js```
-Edit index.js to update ECharts content.  
+edit ```src/main.js``` to change the content.  
 
 ## Tutorials
 

@@ -1,3 +1,5 @@
+var myChart = echarts.init(document.getElementById('main'));
+
 var data = [
     {name: '海门', value: 9},
     {name: '鄂尔多斯', value: 12},
@@ -429,7 +431,7 @@ function renderItem(params, api) {
     };
 }
 
-export let option_chinamap2 = {
+let option = {
     backgroundColor: 'transparent',
     title: {
         text: '全国主要城市空气质量',
@@ -634,27 +636,20 @@ export let option_chinamap2 = {
                 shadowColor: '#333'
             },
             zlevel: 1
+        },
+        {
+            type: 'custom',
+            coordinateSystem: 'bmap',
+            renderItem: renderItem,
+            itemStyle: {
+                opacity: 0.5
+            },
+            animation: false,
+            silent: true,
+            data: [0],
+            z: -10
         }
     ]
 };
 
-export let option_chinamap3 = {
-    // ...
-     bmap: {
-            center: [104.114129, 38.550339], // 地图中心点
-			zoom: 5,
-			roam: true
-     },
-    series: [
-        {
-             type: 'effectScatter',
-             coordinateSystem: 'bmap',
-            // ...
-        }, {
-             type: 'effectScatter',
-             coordinateSystem: 'bmap',
-            // ...
-        }
-        
-    ]
-}
+myChart.setOption(option);
