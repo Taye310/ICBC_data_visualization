@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>数据可视化</title>
+        <link rel="stylesheet" href="css/index.css" />
+    </head>
+    <body>
+        <header>
+            <h1>实时数据监测</h1>
+            <div class="showTime"></div>
+            <script>
+                var t = null;
+                t = setTimeout(time, 1000); //开始运行
+                function time(){
+                    clearTimeout(t); //清除定时器
+                    dt = new Date();
+                    var y = dt.getFullYear();
+                    var mt = dt.getMonth();
+                    var day = dt.getDate();
+                    var h = dt.getHours();
+                    var m = dt.getMinutes();
+                    var s = dt.getSeconds();
+                    document.querySelector(".showTime").innerHTML = "当前时间：" + y + "年" + mt + "月" + day + "-" + h + "时" + m + "分" + s +"秒";
+                    t = setTimeout(time, 1000);
+                }
+            </script>
+        </header>
+
+        <!--页面主体部分-->
+        <section class="mainbox">
+            <div class="column">
+                <div class="panel bar1">
+                    <h2>客流量（柱形图）</h2>
+                    <div>总流量:</div>
+                    <div>----------</div>
+                    <div>流量第一：XX支行，XX人</div>
+                    <div>流量第一：XX支行，XX人</div>
+                    <div>流量第二：XX支行，XX人</div>
+                    <div>流量第三：XX支行，XX人</div>
+                    <!-- <div class="chart">图表</div> -->
+                    <!-- <div class="panel-footer"></div> -->
+                </div>
+                <div class="panel line1">
+                    <h2>
+                        折线图-人员变化 <a href="javascript:;">2020</a><a href="javascript:;">2021</a>
+                    </h2>
+                    <div class="chart">图表</div>
+                    <div class="panel-footer"></div>
+                </div>
+                <div class="panel pie1">
+                    <h2>柱形图-访问方式</h2>
+                    <div class="chart">图表</div>
+                    <div class="panel-footer"></div>
+                </div>
+            </div>
+            <div class="column">
+                <!--no模块-->
+                <div class="no">
+                    <div class="no-hd">
+                        <ul>
+                            <li>XXXXXXX</li>
+                            <li>YYYYYYY</li>
+                        </ul>
+                    </div>
+                    <div class="no-bd">
+                        <ul>
+                            <li>实时客流量</li>
+                            <li>实时交易量</li>
+                        </ul>
+                    </div>
+                </div>
+                <!--地图模块-->
+                <div class="map">
+                    <div class="map1"></div>
+                    <div class="map2"></div>
+                    <div class="map3"></div>
+                    <div class="chart"></div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="panel bar2">
+                    <h2>交易量（柱形图）</h2>
+                    <div>总交易量:</div>
+                    <div>----------</div>
+                    <div>交易量第一：XX支行，XX万元</div>
+                    <div>交易量第一：XX支行，XX万元</div>
+                    <div>交易量第二：XX支行，XX万元</div>
+                    <div>交易量第三：XX支行，XX万元</div>
+                    <!-- <div class="chart">图表</div>
+                    <div class="panel-footer"></div> -->
+                </div>
+                <div class="panel line2">
+                    <h2>柱形图-温度变化</h2>
+                    <div class="chart">图表</div>
+                    <div class="panel-footer"></div>
+                </div>
+                <div class="panel pie2">
+                    <h2>柱形图-玫瑰数量</h2>
+                    <div class="chart">图表</div>
+                    <div class="panel-footer"></div>
+                </div>
+            </div>
+        </section>
+        <script src="js/lib-flexible-2.0/index.js"></script>
+        <script src="js/echarts.js"></script>
+        <script src="js/china.js"></script>
+        <script src="js/jquery.3.5.1.js"></script>
+        <script src="js/index.js"></script>
+    </body>
+</html>
