@@ -1,3 +1,38 @@
+$(function(){
+    $('#FontScroll').FontScroll({time: 2000,num: 1});
+	setTimeout(function(){
+		$('.progress').each(function(i,ele){
+            var PG = $(ele).attr('progress');
+			var PGNum = parseInt(PG);
+			var zero = 0;
+			var speed = 20;
+			var timer;
+			
+			$(ele).find('h4').html(zero+'%');
+			if(PGNum<10){
+				$(ele).find('.progressBar span').addClass('bg-red');
+				$(ele).find('h3 i').addClass('color-red');
+			}else if(PGNum>=10 && PGNum<50){
+				$(ele).find('.progressBar span').addClass('bg-yellow');
+				$(ele).find('h3 i').addClass('color-yellow');
+			}else if(PGNum>=50 && PGNum<100){
+				$(ele).find('.progressBar span').addClass('bg-blue');
+				$(ele).find('h3 i').addClass('color-blue');
+			}else{
+				$(ele).find('.progressBar span').addClass('bg-green');
+				$(ele).find('h3 i').addClass('color-green');
+			}
+			$(ele).find('.progressBar span').animate({width: PG},PGNum*speed);
+			timer = setInterval(function(){
+				zero++;
+				$(ele).find('h4').html(zero+'%');
+				if(zero==PGNum){
+					clearInterval(timer);
+				}
+			},speed);
+		});
+	},500);
+});
 var myChart1;
 function setSummary() {
     myChart1 = echarts.init(document.getElementById('summaryPie1'));

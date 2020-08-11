@@ -118,12 +118,131 @@
                 </div>
                 <div class="panel line2">
                     <h2>自助机具现金使用率</h2>
-                    <div>XX支行现金使用率：43%</div>
-                    <div>XX支行现金使用率：66%</div>
-                    <div>XX支行现金使用率：83%</div>
-                    <div>详细信息（弹出窗口）</div>
-                    <!-- <div class="chart">图表</div>
-                    <div class="panel-footer"></div> -->
+                    <div class="itemCon">
+                        <div class="StateBox">
+                            <div class="StateTit">
+                                <span>序号</span>
+                                <span>支行名称</span>
+                                <span>现金使用率</span>
+                            </div>
+                            <div id="FontScroll">
+                                <ul>
+                                    <li>
+                                        <div class="fontInner clearfix">
+                                            <span>1</span>
+                                            <span>北京朝阳分行</span>
+                                            <span>
+                                                <div class="progress" progress="78%">
+                                                    <div class="progressBar">
+                                                        <span></span>
+                                                    </div>
+                                                    <h3><i><h4></h4></i></h3>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="fontInner clearfix">
+                                            <span>2</span>
+                                            <span>北京东城支行</span>
+                                            <span>
+                                                <div class="progress" progress="59%">
+                                                    <div class="progressBar">
+                                                        <span></span>
+                                                    </div>
+                                                    <h3><i><h4></h4></i></h3>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="fontInner clearfix">
+                                            <span>3</span>
+                                            <span>北京沙河支行</span>
+                                            <span>
+                                                <div class="progress" progress="51%">
+                                                    <div class="progressBar">
+                                                        <span></span>
+                                                    </div>
+                                                    <h3><i><h4></h4></i></h3>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="fontInner clearfix">
+                                            <span>4</span>
+                                            <span>北京航天支行</span>
+                                            <span>
+                                                <div class="progress" progress="35%">
+                                                    <div class="progressBar">
+                                                        <span></span>
+                                                    </div>
+                                                    <h3><i><h4></h4></i></h3>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="fontInner clearfix">
+                                            <span>5</span>
+                                            <span>北京东风支行</span>
+                                            <span>
+                                                <div class="progress" progress="28%">
+                                                    <div class="progressBar">
+                                                        <span></span>
+                                                    </div>
+                                                    <h3><i><h4></h4></i></h3>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="fontInner clearfix">
+                                            <span>6</span>
+                                            <span>北京北七家支行</span>
+                                            <span>
+                                                <div class="progress" progress="22%">
+                                                    <div class="progressBar">
+                                                        <span></span>
+                                                    </div>
+                                                    <h3><i><h4></h4></i></h3>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="fontInner clearfix">
+                                            <span>7</span>
+                                            <span>北京世纪城支行</span>
+                                            <span>
+                                                <div class="progress" progress="9%">
+                                                    <div class="progressBar">
+                                                        <span></span>
+                                                    </div>
+                                                    <h3><i><h4></h4></i></h3>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="fontInner clearfix">
+                                            <span>8</span>
+                                            <span>北京永丰支行</span>
+                                            <span>
+                                                <div class="progress" progress="8%">
+                                                    <div class="progressBar">
+                                                        <span></span>
+                                                    </div>
+                                                    <h3><i><h4></h4></i></h3>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="panel pie2">
                     <h2>柜台平均等待时间</h2>
@@ -152,6 +271,7 @@
         <script src="js/map/beijing.js"></script>
         <script src="js/jquery.3.5.1.js"></script>
         <script src="js/index.js"></script>
+        <script type="text/javascript" src="js/fontscroll.js"></script>
         <script type="text/javascript">
         var myChart = echarts.init(document.querySelector(".map .chart"));
         var points = [{
