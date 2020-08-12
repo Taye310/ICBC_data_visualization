@@ -38,26 +38,35 @@
                 </div>
                 <div class="panel line1">
                     <h2>
-                        各支行职工上岗率（柱形图） <a class="2020buttom", href="javascript:;">详情</a>
+                        各支行职工上岗率<a class="2020buttom", href="javascript:;">查看详情</a>
                     </h2>
-                    <div>上岗率：XX支行，上岗率为20%</div>
-                    <div>上岗率：XX支行，上岗率为30%</div>
-                    <div>上岗率：XX支行，上岗率为40%</div>
-                    <div>详细信息（弹出窗口）</div>
-                    <!-- <div class="chart">图表</div>
-                    <div class="panel-footer"></div> -->
+                    <div class="chart">图表</div>
+                    <div class="panel-footer"></div>
                 </div>
                 <div class="panel pie1">
                     <h2>风险统计</h2>
-                    <div>今日出现准风险事件数量：3件</div>
-                    <div>判定为风险事件数量：1件</div>
-                    <div>详细信息（弹出窗口）</div>
-                    <!-- <div class="chart">图表</div>
-                    <div class="panel-footer"></div> -->
+                    <div class="itemCon itembg">
+						<div class="infoPie">
+							<ul class="clearfix">
+								<li class="color-4">
+									<span class="border-yellow" id="indicator1" total="3"></span>
+									<p>风险事件</p>
+								</li>
+								<li class="color-3">
+									<span class="border-green" id="indicator2" total="1"></span>
+									<p>准风险事件</p>
+								</li>
+								<li class="color-2">
+									<span class="border-blue" id="indicator3" total="0.2‰"></span>
+									<p>风控水平</p>
+								</li>
+							</ul>
+							<div id="indicatorContainer"></div>
+						</div>
+					</div>
                 </div>
             </div>
             <div class="column">
-                <!--no模块-->
                 <div class="no">
                     <div class="no-hd">
                         <ul>
@@ -65,12 +74,12 @@
                                 <div id="sskll1" class="sskll"></div>
                                 <script>
                                     var temp1 = Math.round(1000*Math.random())+2222;
-                                    var t1 = setTimeout(time1, 666); //开始运行
+                                    var t1 = setTimeout(time1, 1000); //开始运行
                                     function time1(){
                                         clearTimeout(t1);
                                         temp1 = temp1 + Math.round(10*Math.random());
                                         document.getElementById("sskll1").innerHTML = temp1;
-                                        t1 = setTimeout(time1, 666);
+                                        t1 = setTimeout(time1, 1000);
                                     }
                                 </script>
                             </li>
@@ -78,12 +87,12 @@
                                 <div id="ssjyl1" class="ssjyl"></div>
                                 <script>
                                     var temp2 = Math.round(100000*Math.random())+234143;
-                                    var t2 = setTimeout(time2, 666); //开始运行
+                                    var t2 = setTimeout(time2, 500); //开始运行
                                     function time2(){
                                         clearTimeout(t2);
                                         temp2 = temp2 + Math.round(1000*Math.random());
                                         document.getElementById("ssjyl1").innerHTML = temp2;
-                                        t2 = setTimeout(time2, 666);
+                                        t2 = setTimeout(time2, 500);
                                     }
                                 </script>
                             </li>
@@ -254,7 +263,6 @@
                     <div class="panel-footer"></div> -->
                 </div>
             </div>
-
             <div class="filterbg"></div>
             <div class="popup">
                 <a href="javascript:;" class="popupClose"></a>
@@ -267,206 +275,9 @@
         </section>
         <script src="js/lib-flexible-2.0/index.js"></script>
         <script src="js/echarts.js"></script>
-        <script src="js/china.js"></script>
         <script src="js/map/beijing.js"></script>
         <script src="js/jquery.3.5.1.js"></script>
         <script src="js/index.js"></script>
         <script type="text/javascript" src="js/fontscroll.js"></script>
-        <script type="text/javascript">
-        var myChart = echarts.init(document.querySelector(".map .chart"));
-        var points = [{
-            name: '',
-            value: [115.974519, 40.457009]
-        }, {
-            name: '',
-            value: [115.843267, 39.709144]
-        }, {
-            name: '',
-            value: [116.993177, 40.536834]
-        }, {
-            name: '',
-            value: [115.843267, 40.009144]
-        }, {
-            name: '',
-            value: [116.443267, 39.629144]
-        }, {
-            name: '',
-            value: [116.743267, 39.769144]
-        }, {
-            name: '',
-            value: [116.743267, 40.099144]
-        }, {
-            name: '',
-            value: [117.083267, 40.249144]
-        }, {
-            name: '',
-            value: [116.553177, 40.386834]
-        }, {
-            name: '',
-            value: [116.253177, 40.236834]
-        }, {
-            name: '',
-            value: [116.369177, 39.906834]
-        }]
-        var option = {
-            backgroundColor: 'rgba(147, 235, 248, 0)',
-            geo: {
-                map: '北京',
-                aspectScale: 0.75, //长宽比
-                zoom: .9,
-                roam: true,
-                label: {
-                    normal: {
-                        show: false,
-                        textStyle: {
-                            color: '#fff',
-                            fontSize: 10
-                        }
-                    },
-                    emphasis: {
-                        textStyle: {
-                            color: '#fff'
-                        }
-                    }
-                },
-                itemStyle: {
-                    normal: {
-                        borderColor: 'rgba(147, 235, 248, .4)',
-                        borderWidth: 1,
-                        areaColor: {
-                            type: 'radial',
-                            x: 0.5,
-                            y: 0.5,
-                            r: 0.8,
-                            colorStops: [{
-                                offset: 0,
-                                color: 'rgba(147, 235, 248, 0)' // 0% 处的颜色
-                            }, {
-                                offset: 1,
-                                color: 'rgba(147, 235, 248, .2)' // 100% 处的颜色
-                            }],
-                            globalCoord: false // 缺省为 false
-                        },
-                        shadowColor: 'rgba(128, 217, 248, 1)',
-                        shadowOffsetX: -2,
-                        shadowOffsetY: 2,
-                        shadowBlur: 10
-                    },
-                    emphasis: {
-                        areaColor: '#389BB7',
-                        borderWidth: 0
-                    }
-                }
-            },
-            series: [{
-                    type: 'effectScatter',
-                    coordinateSystem: 'geo',
-                    showEffectOn: 'render',
-                    rippleEffect: {
-                        period: 4,
-                        scale: 3,
-                        brushType: 'fill'
-                    },
-                    hoverAnimation: true,
-                    label: {
-                        normal: {
-                            formatter: '{b}',
-                            position: 'right',
-                            offset: [15, 0],
-                            color: '#1DE9B6',
-                            show: true
-                        },
-                    },
-                    itemStyle: {
-                        normal: {
-                            color: 'rgb(25, 216, 168, 0.6)',
-                            shadowBlur: 10,
-                            shadowColor: '#333'
-                        }
-                    },
-                    data: points
-                }, //地图线的动画效果
-                {
-                    type: 'lines',
-                    zlevel: 2,
-                    effect: {
-                        show: true,
-                        period: 4, //箭头指向速度，值越小速度越快
-                        trailLength: 0.02, //特效尾迹长度[0,1]值越大，尾迹越长重
-                        symbol: 'arrow', //箭头图标
-                        symbolSize: 3, //图标大小
-                    },
-                    lineStyle: {
-                        normal: {
-                            color: '#1DE9B6',
-                            width: 0.5, //线条宽度
-                            opacity: 0.5, //尾迹线条透明度
-                            curveness: .3 //尾迹线条曲直度
-                        }
-                    },
-                    data: [{
-                        coords: [
-                            [116.369177, 39.906834],
-                            [115.974519, 40.457009]
-                        ]
-                    }, {
-                        coords: [
-                            [116.369177, 39.906834],
-                            [115.843267, 39.709144]
-                        ]
-                    }, {
-                        coords: [
-                            [116.369177, 39.906834],
-                            [116.993177, 40.536834]
-                        ]
-                    }, {
-                        coords: [
-                            [116.369177, 39.906834],
-                            [115.843267, 40.009144]
-                        ]
-                    }, {
-                        coords: [
-                            [116.369177, 39.906834],
-                            [116.443267, 39.629144]
-                        ]
-                    }, {
-                        coords: [
-                            [116.369177, 39.906834],
-                            [116.743267, 39.769144]
-                        ]
-                    }, {
-                        coords: [
-                            [116.369177, 39.906834],
-                            [116.743267, 40.099144]
-                        ]
-                    }, {
-                        coords: [
-                            [116.369177, 39.906834],
-                            [117.083267, 40.249144]
-                        ]
-                    }, {
-                        coords: [
-                            [116.369177, 39.906834],
-                            [116.553177, 40.386834]
-                        ]
-                    }, {
-                        coords: [
-                            [116.369177, 39.906834],
-                            [116.253177, 40.236834]
-                        ]
-                    }, {
-                        coords: [
-                            [116.369177, 39.906834],
-                            [116.369177, 39.906834]
-                        ]
-                    }]
-                },
-            ]
-        };
-        myChart.setOption(option);
-        window.addEventListener('resize', function() {
-            myChart.resize();
-        });
-        </script>
     </body>
 </html>

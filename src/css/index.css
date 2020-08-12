@@ -116,6 +116,37 @@ header .showTime {
 .mainbox .panel .chart {
   height: 3rem;
 }
+.border-yellow{
+	border-color: #e0ab48 !important;
+}
+.border-green{
+	border-color: #23d4a5 !important;
+}
+.border-blue{
+	border-color: #15a7eb !important;
+}
+.infoPie ul li{
+  list-style-type: none;
+	float: left;
+	width: 33%;
+}
+.infoPie ul li span{
+  list-style-type: none;
+	display: block;
+	width: 110px;
+	height: 110px;
+	margin: 36px auto;
+	border: 6px solid transparent;
+	text-align: center;
+	line-height: 95px;
+	font-size: 33px;
+	border-radius: 40%;
+}
+.infoPie ul li p{
+	text-align: center;
+	font-size: 20px;
+  padding-bottom: 8px;
+}
 .no {
   background-color: rgba(42, 79, 190, 0.2);
   padding: 0.1875rem;
@@ -207,29 +238,29 @@ header .showTime {
   font-size: 1rem;
   font-family: "electronicFont";
 }
-.color-yellow{
-	color: #ffd220 !important;
+.color-1{
+	color: #1377e9 !important;
 }
-.color-green{
-	color: #32ffc7 !important;
+.color-2{
+	color: #13ace9 !important;
 }
-.color-blue{
-	color: #1eb6fe !important;
+.color-3{
+	color: #23d4a5 !important;
 }
-.color-red{
-	color: #ff0e0d !important;
+.color-4{
+	color: #e0ab48 !important;
 }
-.bg-yellow{
-	background-color: #ffd220 !important;
+.bg-1{
+	background-color: #1377e9 !important;
 }
-.bg-green{
-	background-color: #32ffc7 !important;
+.bg-2{
+	background-color: #13ace9 !important;
 }
-.bg-blue{
-	background-color: #1eb6fe !important;
+.bg-3{
+	background-color: #23d4a5 !important;
 }
-.bg-red{
-	background-color: #ff0e0d !important;
+.bg-4{
+	background-color: #e0ab48 !important;
 }
 .line2 .StateTit{
   height: 40px;
@@ -285,7 +316,7 @@ header .showTime {
 	font-style: normal;
 }
 #FontScroll{
-	height: 228px;
+	height: 210px;
 	overflow: hidden;
 }
 .map {
@@ -349,6 +380,7 @@ header .showTime {
 .popup {
   width: 0;
   height: 0;
+  /* background: #33a5e7; */
   background: #061f3e;
   position: absolute;
   top: 50%;
