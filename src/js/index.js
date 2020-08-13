@@ -482,7 +482,7 @@ function summaryHide(){
                 show: false,
                 data: times,
                 autoPlay: true,
-                playInterval: 3000,
+                playInterval: 5000,
             },
             title: {
                 show: false
