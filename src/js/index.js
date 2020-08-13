@@ -1,11 +1,11 @@
 $(function(){
     // 自助机具现金使用率滚动状态
-    $('#FontScroll').FontScroll({time: 2000,num: 1});
+    $('#FontScroll').FontScroll({time: 1000, num: 1});
     $('.progress').each(function(i,ele){
         var PG = $(ele).attr('progress');
         var PGNum = parseInt(PG);
         var zero = 0;
-        var speed = 20;
+        var speed = 10;
         var timer;
         $(ele).find('h4').html(zero+'%');
         if(PGNum<10){
@@ -30,7 +30,7 @@ $(function(){
             }
         },speed);
     });
-    function totalNum(obj,speed){
+    function totalNum(obj, speed){
         var singalNum = 0;
         var timer;
         var totalNum = obj.attr('total');
@@ -392,90 +392,187 @@ function summaryHide(){
     $('.popup').width(0);
 };
 
-//柱状图模块1
+// 各支行职工上岗率
 (function(){
-    var myChart = echarts.init(document.getElementById('chart1'));
+    var myChart = echarts.init(document.getElementById('chart21'));
+    var titlename = ['西城支行', '中关村支行', '昌平支行', '北七家支行', '东风支行', '航天支行'];
     var option = {
-        color: ['#00c1de'],
-        tooltip: {
+        tooltip : {
             trigger: 'axis',
-            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            axisPointer : {
+                type : 'shadow'
             }
+        },
+        legend: {
+            show: false
         },
         grid: {
-            left: '0%',
-            top: '10px',
-            right: '0%',
-            bottom: '4%',
+            top: '6',
+            left: '6',
+            right: '20',
+            bottom: '0',
             containLabel: true
         },
-        xAxis: [
-            {
-                type: 'category',
-                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                axisTick: {
-                    alignWithLabel: true
-                },
-                axisLabel: {
-                    color: "rgba(255,255,255,0.6)",
-                    fontSize: "13"
-                },
-                axisLine: {
-                    show: false
+        xAxis:  {
+            type: 'value',
+            axisLine:{
+                show: false
+            },
+            splitLine: {
+                show: false
+            },
+            axisLabel: {
+                show: false
+            },
+        },
+        yAxis: [{
+            type: 'category',
+            inverse: true,
+            data:titlename,
+            axisLine:{
+                lineStyle:{
+                    color:'#6075ac',
                 }
-            }
-        ],
-        yAxis: [
-            {
-                type: 'value',
-                axisLabel: {
-                    color: "rgba(255,255,255,0.6)",
-                    fontSize: "12"
+            },
+            axisTick: {
+                show: false
+            },
+            axisLabel:{
+                color: '#04dbde',
+                nameTextStyle: {
+                    fontSize: '56',
                 },
-                axisLine: {
-                    lineStyle: {
-                        color: "rbga(255,255,255,0.1)",
-                        width: 2
-                    }
+                formatter: function(value, index) {
+                    return index == 0||index == 1||index == 2 ? '{yellow|NO.' + (index + 1) + '}' + '{title|' + value + '} ' 
+                    : '{white|NO.' + (index + 1) + '}' + '{title|' + value + '} ' ;
                 },
-                splitLine: {
-                    lineStyle: {
-                        color: "rgba(255,255,255,0.1)"
-                    }
-                }
-            }
-        ],
+                rich: {
+                    title:{
+                            width: 120,
+                            fontSize: '14',
+                            color: 'rgba(255,255,255,0.85)'
+                    },
+                    yellow: {
+                        color: '#FEC735',fontSize: '16',
+                    },
+                    white:{
+                        color: '#fff',fontSize: '16',
+                    },
+                },
+            },
+        }],
         series: [
             {
-                name: '直接访问',
+                barWidth:'17',
+                name: '请假',
                 type: 'bar',
-                barWidth: '35%',
-                data: [10, 52, 200, 334, 390, 330, 220],
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'inside'
+                    }
+                },
                 itemStyle: {
-                    barBorderRadius: 5
-                }
+                    normal: {
+                        barBorderRadius: 6,
+                        color: "#23d4a5"
+                    }
+                },
+                data: [3, 4, 2, 2, 3, 4]
+            },
+            {
+                name: '按时打卡',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'inside'
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: 6,
+                        color: "#15a7eb"
+                    }
+                },
+                data: [95, 92, 90, 88, 81, 78]
+            },
+            {
+                name: '迟到早退',
+                type: 'bar',
+                stack: '总量',
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'inside',
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: 6,
+                        color: "#e0ab48",
+                    }
+                },
+                data: [2, 4, 8, 10, 16, 18]
             }
         ]
     };
+    //外围的动态数据显示
+    var timeTicket = null;
+    var count = 0;
+    timeTicket && clearInterval(timeTicket);
+    timeTicket = setInterval(function() {
+    showshowTip();
+    }, 1500);
+    myChart.on('mouseover', function(params) {
+        clearInterval(timeTicket);
+    });
+    myChart.on('mouseout', function(params) {
+        timeTicket && clearInterval(timeTicket);
+        myChart.dispatchAction({
+            type: 'downplay',
+        });
+        timeTicket = setInterval(function() {
+        showshowTip();
+        }, 1500);
+    });
+    function showshowTip(){
+        var dataLength = option.series[1].data.length;
+        myChart.dispatchAction({
+            type: 'downplay',
+            seriesIndex: 1
+        });
+        myChart.dispatchAction({
+            type: 'highlight',
+            seriesIndex: 1,
+            dataIndex: count % dataLength
+        });
+        myChart.dispatchAction({
+            type: 'showTip',
+            seriesIndex: 1,
+            dataIndex: count % dataLength,
+        });
+        count++;
+    }
     myChart.setOption(option);
     window.addEventListener('resize', function() {
         myChart.resize();
     })
 })();
-
-// 各行职工上岗率
+// 各支行客流量
 (function(){
-    var myChart = echarts.init(document.querySelector(".line1 .chart"));
+    var myChart = echarts.init(document.getElementById("chart11"));
     var times = ['2016','2017','2018','2019'];
     var jdData =[[ '海淀支行','朝阳支行','顺义支行','通州支行','中关村支行','五道口支行','丰台支行','石景山支行','昌平支行','西单支行'],
                  [ '海淀支行','朝阳支行','顺义支行','通州支行','中关村支行','五道口支行','丰台支行','石景山支行','昌平支行','西单支行'],
                  [ '海淀支行','朝阳支行','顺义支行','通州支行','中关村支行','五道口支行','丰台支行','石景山支行','昌平支行','西单支行'],
                  [ '海淀支行','朝阳支行','顺义支行','通州支行','中关村支行','五道口支行','丰台支行','石景山支行','昌平支行','西单支行']]
-    var data =[[36,24,34,67,12,41,55,23,42,66],
+    var data =[[36,24,34,67,22,41,55,23,42,66],
                [66,33,45,78,45,42,58,42,57,80],
-               [73,85,54,83,67,57,68,82,78,93],
-               [100,95,88,86,100,87,98,87,88,94]];
+               [93,85,54,83,67,57,68,82,78,93],
+               [128,95,88,86,103,87,98,87,88,94]];
     var option = {
         baseOption: {
             timeline: {
@@ -578,7 +675,7 @@ function summaryHide(){
                     normal: {
                         show: true,
                         position: 'right',
-                        formatter: '{c}%',
+                        formatter: '{c}',
                         textStyle: {
                             fontSize: 15
                         }
@@ -644,7 +741,784 @@ function summaryHide(){
         myChart.resize();
     })
 })();
-
+// 各支行交易量
+(function(){
+    var myChart = echarts.init(document.getElementById("chart12"));
+    var times = ['2016','2017','2018','2019'];
+    var jdData =[[ '海淀支行','朝阳支行','顺义支行','通州支行','中关村支行','五道口支行','丰台支行','石景山支行','昌平支行','西单支行'],
+                 [ '海淀支行','朝阳支行','顺义支行','通州支行','中关村支行','五道口支行','丰台支行','石景山支行','昌平支行','西单支行'],
+                 [ '海淀支行','朝阳支行','顺义支行','通州支行','中关村支行','五道口支行','丰台支行','石景山支行','昌平支行','西单支行'],
+                 [ '海淀支行','朝阳支行','顺义支行','通州支行','中关村支行','五道口支行','丰台支行','石景山支行','昌平支行','西单支行']]
+    var data =[[36,24,34,67,12,41,55,23,42,66],
+               [66,33,45,78,45,42,58,42,57,80],
+               [73,85,54,83,67,57,68,82,78,93],
+               [100,95,88,86,100,87,98,87,88,94]];
+    var option = {
+        baseOption: {
+            timeline: {
+                show: false,
+                data: times,
+                autoPlay: true,
+                playInterval: 3000,
+            },
+            title: {
+                show: false
+            },
+            tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+            },
+            calculable: true,
+            grid: {
+                left: '8%',
+                right: '2%',
+                bottom: '-18',
+                top:'1%',
+                containLabel: true
+            },
+            label:{
+                normal:{
+                    textStyle:{
+                        color:'#fff'
+                    }
+                }
+            },
+            yAxis: [{
+                position:'right',
+                offset: 8,
+                'type': 'category',
+                data: '',
+                nameTextStyle:{
+                    color:'#fff'
+                },
+                axisLabel:{
+                    textStyle:{
+                        fontSize:15,
+                        color:'rgba(255,255,255,0.9)',
+                    },
+                    interval: 0
+                },
+                axisLine:{
+                    lineStyle:{
+                        color:'#333'
+                    },
+                },
+                splitLine:{
+                    show:false,
+                    lineStyle:{
+                        color:'#333'
+                    }
+                },
+            }],
+            xAxis: [{
+                inverse: true,
+                show: false,
+                'type': 'value',
+                'name': '',
+                splitNumber:8,
+                nameTextStyle:{
+                    color:'#333'
+                },
+                axisLine:{
+                    lineStyle:{
+                        color:'#333'
+                    }
+                },
+                axisLabel: {
+                    formatter: '{value} '
+                },
+                splitLine:{
+                    show:true,
+                    lineStyle:{
+                        color:'#ccc'
+                    }
+                },
+            }],
+            series: [{
+                'name': '',
+                'type': 'bar',
+                markLine : {
+                    label:{
+                        normal:{
+                            show: true
+                        }
+                    },
+                    lineStyle:{
+                        normal:{
+                            color:'red',
+                            width:3
+                        }
+                    },
+                },
+                barWidth:'14',
+                label: {
+                    normal: {
+                        show: true,
+                        position: 'left',
+                        formatter: '{c}',
+                        textStyle: {
+                            fontSize: 15
+                        }
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        barBorderRadius: 6,
+                        color: function(params) {
+                            // build a color map as your need.
+                            var colorList = [
+                                '#165ebd', '#034191', '#194d91','#31609c',
+                                '#227bb1', '#2295e2', '#159adf','#13a5e7', 
+                                '#237fd4', '#094faa', 
+                            ];
+                            return colorList[params.dataIndex]
+                        },
+                    }
+                },
+            }],
+            animationDurationUpdate: 2000,
+            animationEasingUpdate: 'quinticInOut'
+        },
+        options: []
+    };
+    for (var n = 0; n < times.length; n++) {
+        var res = [];
+        for(j=0;j<data[n].length;j++){
+            res.push({
+                name: jdData[n][j],
+                value: data[n][j]
+            });
+        }
+        res.sort(function(a, b) {
+            return b.value - a.value;
+        }).slice(0, 6);
+        res.sort(function(a, b) {
+            return a.value - b.value;
+        });
+        var res1=[];
+        var res2=[];
+        for(t=0;t<res.length;t++){
+            res1[t]=res[t].name;
+            res2[t]=res[t].value;
+        }
+        console.log(res1);
+        console.log("----------------");
+        console.log(jdData[n]);
+        option.options.push({
+            title: {
+                text: times[n] +'年'
+            },
+            yAxis:{
+                data:res1,
+            },
+            series: [{
+                data: res2
+            }]
+        });
+    };
+    myChart.setOption(option);
+    window.addEventListener('resize', function() {
+        myChart.resize();
+    })
+})();
+// 营业网店统计
+(function(){
+    var myChart = echarts.init(document.getElementById('pie2storechart'));
+    let angle = 0;//角度，用来做简单的动画效果的
+    let value = 91.6;
+    var option = {
+        title: {
+            text: '{a|'+ value +'}{c|%}',
+            x: 'center',
+            y: 'center',
+            textStyle: {
+                rich:{
+                    a: {
+                        fontSize: 30,
+                        color: '#29EEF3'
+                    },
+                    c: {
+                        fontSize: 30,
+                        color: '#29EEF3',
+                    }
+                }
+            }
+        },
+        legend: {
+            type: "plain",
+            orient: "vertical",
+            right: 0,
+            top: "10%",
+            align: "auto",
+            data: [{
+                name: '1',
+                icon: "circle"
+            }, {
+                name: '2',
+                icon: "circle"
+            }, {
+                name: '3',
+                icon: "circle"
+            }, {
+                name: '4',
+                icon: "circle"
+            }],
+            textStyle: {
+                color: "white",
+                fontSize: 16,
+                padding: [10, 1, 10, 0]
+            },
+            selectedMode:false
+        },
+        series: [ {
+                name: "ring5",
+                type: 'custom',
+                coordinateSystem: "none",
+                renderItem: function(params, api) {
+                    return {
+                        type: 'arc',
+                        shape: {
+                            cx: api.getWidth() / 2,
+                            cy: api.getHeight() / 2,
+                            r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.6,
+                            startAngle: (0+angle) * Math.PI / 180,
+                            endAngle: (90+angle) * Math.PI / 180
+                        },
+                        style: {
+                            stroke: "#0CD3DB",
+                            fill: "transparent",
+                            lineWidth: 1.5
+                        },
+                        silent: true
+                    };
+                },
+                data: [0]
+            }, {
+                name: "ring5",
+                type: 'custom',
+                coordinateSystem: "none",
+                renderItem: function(params, api) {
+                    return {
+                        type: 'arc',
+                        shape: {
+                            cx: api.getWidth() / 2,
+                            cy: api.getHeight() / 2,
+                            r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.6,
+                            startAngle: (180+angle) * Math.PI / 180,
+                            endAngle: (270+angle) * Math.PI / 180
+                        },
+                        style: {
+                            stroke: "#0CD3DB",
+                            fill: "transparent",
+                            lineWidth: 1.5
+                        },
+                        silent: true
+                    };
+                },
+                data: [0]
+            }, {
+                name: "ring5",
+                type: 'custom',
+                coordinateSystem: "none",
+                renderItem: function(params, api) {
+                    return {
+                        type: 'arc',
+                        shape: {
+                            cx: api.getWidth() / 2,
+                            cy: api.getHeight() / 2,
+                            r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.65,
+                            startAngle: (270+-angle) * Math.PI / 180,
+                            endAngle: (40+-angle) * Math.PI / 180
+                        },
+                        style: {
+                            stroke: "#0CD3DB",
+                            fill: "transparent",
+                            lineWidth: 1.5
+                        },
+                        silent: true
+                    };
+                },
+                data: [0]
+            }, {
+                name: "ring5",
+                type: 'custom',
+                coordinateSystem: "none",
+                renderItem: function(params, api) {
+                    return {
+                        type: 'arc',
+                        shape: {
+                            cx: api.getWidth() / 2,
+                            cy: api.getHeight() / 2,
+                            r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.65,
+                            startAngle: (90+-angle) * Math.PI / 180,
+                            endAngle: (220+-angle) * Math.PI / 180
+                        },
+                        style: {
+                            stroke: "#0CD3DB",
+                            fill: "transparent",
+                            lineWidth: 1.5
+                        },
+                        silent: true
+                    };
+                },
+                data: [0]
+            }, {
+                name: "ring5",
+                type: 'custom',
+                coordinateSystem: "none",
+                renderItem: function(params, api) {
+                    let x0 = api.getWidth() / 2;
+                    let y0 = api.getHeight() / 2;
+                    let r = Math.min(api.getWidth(), api.getHeight()) / 2 * 0.65;
+                    let point = getCirlPoint(x0, y0, r, (90+-angle))
+                    return {
+                        type: 'circle',
+                        shape: {
+                            cx: point.x,
+                            cy: point.y,
+                            r: 4
+                        },
+                        style: {
+                            stroke: "#0CD3DB",//粉
+                            fill: "#0CD3DB"
+                        },
+                        silent: true
+                    };
+                },
+                data: [0]
+            }, {
+                name: "ring5",  //绿点
+                type: 'custom',
+                coordinateSystem: "none",
+                renderItem: function(params, api) {
+                    let x0 = api.getWidth() / 2;
+                    let y0 = api.getHeight() / 2;
+                    let r = Math.min(api.getWidth(), api.getHeight()) / 2 * 0.65;
+                    let point = getCirlPoint(x0, y0, r, (270+-angle))
+                    return {
+                        type: 'circle',
+                        shape: {
+                            cx: point.x,
+                            cy: point.y,
+                            r: 4
+                        },
+                        style: {
+                            stroke: "#0CD3DB",      //绿
+                            fill: "#0CD3DB"
+                        },
+                        silent: true
+                    };
+                },
+                data: [0]
+            }, {
+                name: '吃猪肉频率',
+                type: 'pie',
+                radius: ['58%', '45%'],
+                silent: true,
+                clockwise: true,
+                startAngle: 90,
+                z: 0,
+                zlevel: 0,
+                label: {
+                    normal: {
+                        position: "center",
+                    }
+                },
+                data: [{
+                        value: value,
+                        name: "",
+                        itemStyle: {
+                            normal: {
+                                color: { // 完成的圆环的颜色
+                                    colorStops: [{
+                                        offset: 0,
+                                        color: '#4FADFD' // 0% 处的颜色
+                                    }, {
+                                        offset: 1,
+                                        color: '#28E8FA' // 100% 处的颜色
+                                    }]
+                                },
+                            }
+                        }
+                    },
+                    {
+                        value: 100-value,
+                        name: "",
+                        label: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: "#173164"
+                            }
+                        }
+                    }
+                ]
+            },{
+                name: "",
+                type: "gauge",
+                radius: "58%",
+                center: ['50%', '50%'],
+                startAngle: 0,
+                endAngle: 359.9,
+                splitNumber: 8,
+                hoverAnimation: true,
+                axisTick: {
+                    show: false
+                },
+                splitLine: {
+                    length: 60,
+                    lineStyle: {
+                        width: 5,
+                        color: "#061740"
+                    }
+                },
+                axisLabel: {
+                    show: false
+                },
+                pointer: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        opacity: 0
+                    }
+                },
+                detail: {
+                    show: false
+                },
+                data: [{
+                    value: 0,
+                    name: ""
+                }]
+            },
+        ]
+    };
+    //获取圆上面某点的坐标(x0,y0表示坐标，r半径，angle角度)
+    function getCirlPoint(x0, y0, r, angle) {
+        let x1 = x0 + r * Math.cos(angle * Math.PI / 180)
+        let y1 = y0 + r * Math.sin(angle * Math.PI / 180)
+        return {
+            x: x1,
+            y: y1
+        }
+    }
+    function draw(){
+        angle = angle+3
+        myChart.setOption(option, true)
+    //window.requestAnimationFrame(draw);
+    }
+    setInterval(function() {
+        //用setInterval做动画感觉有问题
+        draw()
+    }, 100);
+    myChart.setOption(option);
+    window.addEventListener('resize', function() {
+        myChart.resize();
+    })
+})();
+// 营业ATM统计
+(function(){
+    var myChart = echarts.init(document.getElementById('pie2atmchart'));
+    let angle = 0;//角度，用来做简单的动画效果的
+    let value = 72.5;
+    var option = {
+        title: {
+            text: '{a|'+ value +'}{c|%}',
+            x: 'center',
+            y: 'center',
+            textStyle: {
+                rich:{
+                    a: {
+                        fontSize: 30,
+                        color: '#29EEF3'
+                    },
+                    c: {
+                        fontSize: 30,
+                        color: '#29EEF3',
+                    }
+                }
+            }
+        },
+        legend: {
+            type: "plain",
+            orient: "vertical",
+            right: 0,
+            top: "10%",
+            align: "auto",
+            data: [{
+                name: '1',
+                icon: "circle"
+            }, {
+                name: '2',
+                icon: "circle"
+            }, {
+                name: '3',
+                icon: "circle"
+            }, {
+                name: '4',
+                icon: "circle"
+            }],
+            textStyle: {
+                color: "white",
+                fontSize: 16,
+                padding: [10, 1, 10, 0]
+            },
+            selectedMode:false
+        },
+        series: [ {
+                name: "ring5",
+                type: 'custom',
+                coordinateSystem: "none",
+                renderItem: function(params, api) {
+                    return {
+                        type: 'arc',
+                        shape: {
+                            cx: api.getWidth() / 2,
+                            cy: api.getHeight() / 2,
+                            r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.6,
+                            startAngle: (0+angle) * Math.PI / 180,
+                            endAngle: (90+angle) * Math.PI / 180
+                        },
+                        style: {
+                            stroke: "#0CD3DB",
+                            fill: "transparent",
+                            lineWidth: 1.5
+                        },
+                        silent: true
+                    };
+                },
+                data: [0]
+            }, {
+                name: "ring5",
+                type: 'custom',
+                coordinateSystem: "none",
+                renderItem: function(params, api) {
+                    return {
+                        type: 'arc',
+                        shape: {
+                            cx: api.getWidth() / 2,
+                            cy: api.getHeight() / 2,
+                            r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.6,
+                            startAngle: (180+angle) * Math.PI / 180,
+                            endAngle: (270+angle) * Math.PI / 180
+                        },
+                        style: {
+                            stroke: "#0CD3DB",
+                            fill: "transparent",
+                            lineWidth: 1.5
+                        },
+                        silent: true
+                    };
+                },
+                data: [0]
+            }, {
+                name: "ring5",
+                type: 'custom',
+                coordinateSystem: "none",
+                renderItem: function(params, api) {
+                    return {
+                        type: 'arc',
+                        shape: {
+                            cx: api.getWidth() / 2,
+                            cy: api.getHeight() / 2,
+                            r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.65,
+                            startAngle: (270+-angle) * Math.PI / 180,
+                            endAngle: (40+-angle) * Math.PI / 180
+                        },
+                        style: {
+                            stroke: "#0CD3DB",
+                            fill: "transparent",
+                            lineWidth: 1.5
+                        },
+                        silent: true
+                    };
+                },
+                data: [0]
+            }, {
+                name: "ring5",
+                type: 'custom',
+                coordinateSystem: "none",
+                renderItem: function(params, api) {
+                    return {
+                        type: 'arc',
+                        shape: {
+                            cx: api.getWidth() / 2,
+                            cy: api.getHeight() / 2,
+                            r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.65,
+                            startAngle: (90+-angle) * Math.PI / 180,
+                            endAngle: (220+-angle) * Math.PI / 180
+                        },
+                        style: {
+                            stroke: "#0CD3DB",
+                            fill: "transparent",
+                            lineWidth: 1.5
+                        },
+                        silent: true
+                    };
+                },
+                data: [0]
+            }, {
+                name: "ring5",
+                type: 'custom',
+                coordinateSystem: "none",
+                renderItem: function(params, api) {
+                    let x0 = api.getWidth() / 2;
+                    let y0 = api.getHeight() / 2;
+                    let r = Math.min(api.getWidth(), api.getHeight()) / 2 * 0.65;
+                    let point = getCirlPoint(x0, y0, r, (90+-angle))
+                    return {
+                        type: 'circle',
+                        shape: {
+                            cx: point.x,
+                            cy: point.y,
+                            r: 4
+                        },
+                        style: {
+                            stroke: "#0CD3DB",//粉
+                            fill: "#0CD3DB"
+                        },
+                        silent: true
+                    };
+                },
+                data: [0]
+            }, {
+                name: "ring5",  //绿点
+                type: 'custom',
+                coordinateSystem: "none",
+                renderItem: function(params, api) {
+                    let x0 = api.getWidth() / 2;
+                    let y0 = api.getHeight() / 2;
+                    let r = Math.min(api.getWidth(), api.getHeight()) / 2 * 0.65;
+                    let point = getCirlPoint(x0, y0, r, (270+-angle))
+                    return {
+                        type: 'circle',
+                        shape: {
+                            cx: point.x,
+                            cy: point.y,
+                            r: 4
+                        },
+                        style: {
+                            stroke: "#0CD3DB",      //绿
+                            fill: "#0CD3DB"
+                        },
+                        silent: true
+                    };
+                },
+                data: [0]
+            }, {
+                name: '吃猪肉频率',
+                type: 'pie',
+                radius: ['58%', '45%'],
+                silent: true,
+                clockwise: true,
+                startAngle: 90,
+                z: 0,
+                zlevel: 0,
+                label: {
+                    normal: {
+                        position: "center",
+                    }
+                },
+                data: [{
+                        value: value,
+                        name: "",
+                        itemStyle: {
+                            normal: {
+                                color: { // 完成的圆环的颜色
+                                    colorStops: [{
+                                        offset: 0,
+                                        color: '#4FADFD' // 0% 处的颜色
+                                    }, {
+                                        offset: 1,
+                                        color: '#28E8FA' // 100% 处的颜色
+                                    }]
+                                },
+                            }
+                        }
+                    },
+                    {
+                        value: 100-value,
+                        name: "",
+                        label: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: "#173164"
+                            }
+                        }
+                    }
+                ]
+            },{
+                name: "",
+                type: "gauge",
+                radius: "58%",
+                center: ['50%', '50%'],
+                startAngle: 0,
+                endAngle: 359.9,
+                splitNumber: 8,
+                hoverAnimation: true,
+                axisTick: {
+                    show: false
+                },
+                splitLine: {
+                    length: 60,
+                    lineStyle: {
+                        width: 5,
+                        color: "#061740"
+                    }
+                },
+                axisLabel: {
+                    show: false
+                },
+                pointer: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        opacity: 0
+                    }
+                },
+                detail: {
+                    show: false
+                },
+                data: [{
+                    value: 0,
+                    name: ""
+                }]
+            },
+        ]
+    };
+    //获取圆上面某点的坐标(x0,y0表示坐标，r半径，angle角度)
+    function getCirlPoint(x0, y0, r, angle) {
+        let x1 = x0 + r * Math.cos(angle * Math.PI / 180)
+        let y1 = y0 + r * Math.sin(angle * Math.PI / 180)
+        return {
+            x: x1,
+            y: y1
+        }
+    }
+    function draw(){
+        angle = angle+3
+        myChart.setOption(option, true)
+    //window.requestAnimationFrame(draw);
+    }
+    setInterval(function() {
+        //用setInterval做动画感觉有问题
+        draw()
+    }, 100);
+    myChart.setOption(option);
+    window.addEventListener('resize', function() {
+        myChart.resize();
+    })
+})();
 // 北京地图
 (function(){
     var myChart = echarts.init(document.querySelector(".map .chart"));
@@ -844,339 +1718,3 @@ function summaryHide(){
         myChart.resize();
     });
 })();
-//柱状图模块2
-// (function () {
-//     var myColor = ['pink','blue','yellow','green','red'];
-//     var myChart = echarts.init(document.querySelector(".bar2 .chart"));
-//     var option = {
-//         grid: {
-//             top: '1%',
-//             left: '1%',
-//             bottom: '1%',
-//             containLabel: true
-//         },
-//         xAxis: {
-//             show: false
-//         },
-//         yAxis: [
-//             {
-//                 type: 'category',
-//                 data: ['印尼', '美国', '印度', '韩国', '中国'],
-//                 axisLine: {
-//                     show: false
-//                 },
-//                 axisTick: {
-//                     show: false
-//                 },
-//                 axisLabel: {
-//                     color: 'white'
-//                 }
-//             },
-//             {
-//                 type: 'category',
-//                 data: [702,350,610,793,664],
-//                 axisLine: {
-//                     show: false
-//                 },
-//                 axisTick: {
-//                     show: false
-//                 },
-//                 axisLabel: {
-//                     textStyle: {
-//                         fontSize: 12,
-//                         color: "#fff"
-//                     }
-//                 }
-//             }
-//         ],
-//         series: [
-//             {
-//                 yAxisIndex: 0,
-//                 name: '条',
-//                 type: 'bar',
-//                 data: [70,34,60,78,69],
-//                 itemStyle: {
-//                     barBorderRadius: 5,
-//                     color: function(params){
-//                         return myColor[params.dataIndex];
-//                     }
-//                 },
-//                 barCategoryGap: 50,
-//                 barWidth: 10,
-//                 label: {
-//                     show: true,
-//                     position: 'inside',
-//                     formatter: "{c}%"
-//                 }
-//             },
-//             {
-//                 yAxisIndex: 1,
-//                 name: '框',
-//                 type: 'bar',
-//                 data: [100,100,100,100,100],
-//                 itemStyle: {
-//                     color: 'none',
-//                     borderColor: '#00c1de',
-//                     barBorderRadius: 15
-//                 },
-//                 barCategoryGap: 50,
-//                 barWidth: 15,
-//             }
-//         ]
-//     };
-//     myChart.setOption(option);
-//     window.addEventListener('resize', function() {
-//         myChart.resize();
-//     });
-// })();
-
-// 折线图2模块
-// (function() {
-//     var myChart = echarts.init(document.querySelector(".line2 .chart"));
-//     var option = {
-//         tooltip: {
-//             trigger: 'axis',
-//         },
-//         legend: {
-//             top: "1%",
-//             data: ['华氏度', '摄氏度'],
-//             textStyle: {
-//                 color: "rgba(255,255,255,.5)",
-//                 fontSize: "12"
-//             }
-//         },
-//         grid: {
-//             left: '10',
-//             top: '30',
-//             right: '10',
-//             bottom: '10',
-//             containLabel: true
-//         },
-//         xAxis: [
-//             {
-//                 type: 'category',
-//                 boundaryGap: false,
-//                 data: ["01","02","03","04","05","06","07","08","09","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30"],
-//                 axisLabel: {
-//                     textStyle: {
-//                         color: "rgba(255,255,255,.6)",
-//                         fontSize: 12
-//                     }
-//                 },
-//                 axisLine: {
-//                     lineStyle: {
-//                         color: "rgba(255,255,255,.2)"
-//                     }
-//                 }
-//             }
-//         ],
-//         yAxis: [
-//             {
-//                 type: 'value',
-//                 axisTick: {
-//                     show: false
-//                 },
-//                 axisLine: {
-//                     lineStyle: {
-//                         color: "rgba(255,255,255,.6)",
-//                         fontSize: 12
-//                     }
-//                 },
-//                 splitLine: {
-//                     lineStyle: {
-//                         color: 'rgba(255,255,255,.1)'
-//                     }
-//                 }
-//             }
-//         ],
-//         series: [
-//             {
-//                 smooth: true,
-//                 name: '华氏度',
-//                 type: 'line',
-//                 lineStyle: {
-//                     color: '#0184d5',
-//                     width: '3',
-//                     type: 'dotted'
-//                 },
-//                 areaStyle: {
-//                     normal: {
-//                         color: new echarts.graphic.LinearGradient(
-//                           0,
-//                           0,
-//                           0,
-//                           1,
-//                           [
-//                             {
-//                               offset: 0,
-//                               color: "rgba(1, 132, 213, 0.4)"
-//                             },
-//                             {
-//                               offset: 0.8,
-//                               color: "rgba(1, 132, 213, 0.1)"
-//                             }
-//                           ],
-//                           false
-//                         ),
-//                         shadowColor: "rgba(0, 0, 0, 0.1)"
-//                       }
-//                 },
-//                 symbol: 'circle',
-//                 symbolSize: 5,
-//                 showSymbol: false,
-//                 itemStyle: {
-//                     color: '#0184d5',
-//                     borderColor: 'rgba(255,255,255,.1)',
-//                     borderWidth: 10
-//                 },
-//                 data: [30,40,30,40,30,40,30,60,20,40,20,40,30,40,30,40,30,40,30,60,20,40,20,40,30,60,20,40,20,40]
-//             },
-//             {
-//                 smooth: true,
-//                 name: '摄氏度',
-//                 type: 'line',
-//                 symbol: "circle",
-//                 symbolSize: 5,
-//                 showSymbol: false,
-//                 lineStyle: {
-//                     normal: {
-//                       color: "#00d887",
-//                       width: 2
-//                     }
-//                 },
-//                 areaStyle: {
-//                     normal: {
-//                         color: new echarts.graphic.LinearGradient(
-//                           0,
-//                           0,
-//                           0,
-//                           1,
-//                           [
-//                             {
-//                               offset: 0,
-//                               color: "rgba(0, 216, 135, 0.4)"
-//                             },
-//                             {
-//                               offset: 0.8,
-//                               color: "rgba(0, 216, 135, 0.1)"
-//                             }
-//                           ],
-//                           false
-//                         ),
-//                         shadowColor: "rgba(0, 0, 0, 0.1)"
-//                       }
-//                 },
-//                 itemStyle: {
-//                     normal: {
-//                       color: "#00d887",
-//                       borderColor: "rgba(221, 220, 107, .1)",
-//                       borderWidth: 12
-//                     }
-//                 },
-//                 data: [50,30,50,60,10,50,30,50,60,40,60,40,80,30,50,60,10,50,30,70,20,50,10,40,50,30,70,20,50,10,40]
-//             }
-//         ]
-//     };
-//     myChart.setOption(option);
-//     window.addEventListener('resize', function() {
-//         myChart.resize();
-//     });
-// })();
-// 饼图1模块
-// (function() {
-//     var myChart = echarts.init(document.querySelector(".pie1 .chart"));
-//     var option = {
-//         tooltip: {
-//             trigger: 'item',
-//             formatter: '{a} <br/>{b}: {c} ({d}%)'
-//         },
-//         legend: {
-//             top: '90%',
-//             itemWidth: 10,
-//             itemHeight: 10,
-//             orient: 'vertical',
-//             left: 39,
-//             textStyle: {
-//                 color: 'rgba(255,255,255,.5)',
-//                 fontSize: 12
-//             },
-//             data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
-//         },
-//         series: [
-//             {
-//                 name: '访问来源',
-//                 type: 'pie',
-//                 center: ['50%', '42%'],
-//                 radius: ['50%', '83%'],
-//                 avoidLabelOverlap: false,
-//                 label: {
-//                     show: false,
-//                     position: 'center'
-//                 },
-//                 labelLine: {
-//                     show: false
-//                 },
-//                 data: [
-//                     {value: 335, name: '直接访问'},
-//                     {value: 310, name: '邮件营销'},
-//                     {value: 234, name: '联盟广告'},
-//                     {value: 135, name: '视频广告'},
-//                     {value: 1548, name: '搜索引擎'}
-//                 ]
-//             }
-//         ]
-//     };
-//     myChart.setOption(option);
-//     window.addEventListener('resize', function() {
-//         myChart.resize();
-//     });
-// })();
-// (function() {
-//     var myChart = echarts.init(document.querySelector(".pie2 .chart"));
-//     var option = {
-//         tooltip: {
-//             trigger: 'item',
-//             formatter: '{a} <br/>{b} : {c} ({d}%)'
-//         },
-//         toolbox: {
-//             show: true,
-//             feature: {
-//                 mark: {show: true},
-//                 dataView: {show: true, readOnly: false},
-//                 magicType: {
-//                     show: true,
-//                     type: ['pie', 'funnel']
-//                 },
-//                 restore: {show: true},
-//                 saveAsImage: {show: true}
-//             }
-//         },
-//         series: [
-//             {
-//                 name: '面积模式',
-//                 type: 'pie',
-//                 radius: ['20%', '88%'],
-//                 center: ['50%', '50%'],
-//                 roseType: 'radius',
-//                 labelLine: {
-//                     length: 10,
-//                     length2: 5,
-//                 },
-//                 data: [
-//                     {value: 10, name: 'rose1'},
-//                     {value: 15, name: 'rose2'},
-//                     {value: 15, name: 'rose3'},
-//                     {value: 25, name: 'rose4'},
-//                     {value: 20, name: 'rose5'},
-//                     {value: 25, name: 'rose6'},
-//                     {value: 30, name: 'rose7'},
-//                     {value: 40, name: 'rose8'}
-//                 ]
-//             }
-//         ]
-//     };
-//     myChart.setOption(option);
-//     window.addEventListener('resize', function() {
-//         myChart.resize();
-//     });
-// })();

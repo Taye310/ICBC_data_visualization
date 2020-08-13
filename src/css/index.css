@@ -19,7 +19,7 @@ header {
   background-size: 100% 100%;
 }
 header h1 {
-  font-size: 0.475rem;
+  font-size: 0.525rem;
   color: #fff;
   text-align: center;
   line-height: 1.15rem;
@@ -231,7 +231,7 @@ header .showTime {
 .ssjyl {
   position: absolute;
   text-align: center;
-  right: 15%;
+  right: 20%;
   top: 50%;
   line-height: 0.1rem;
   color: rgb(224, 171, 72);
@@ -318,6 +318,49 @@ header .showTime {
 #FontScroll{
 	height: 210px;
 	overflow: hidden;
+}
+.pie2 .perchart{
+  height: 215px
+}
+.pie2 .pertext{
+  height: auto;
+}
+.pie2 .perchart .store{
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+.pie2 .perchart .atm{
+  float: right;
+  width: 50%;
+  height: 100%;
+}
+.pie2 .perchart ul {
+  margin-top: 12px;
+  margin-bottom: -13px;
+  display: flex;
+}
+.pie2 .perchart ul li {
+  list-style: none;
+  flex: 1;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.225rem;
+  line-height: 0;
+  padding-top: 0;
+}
+.pie2 .pertext ul {
+  margin-top: 0px;
+  display: flex;
+}
+.pie2 .pertext ul li {
+  list-style: none;
+  flex: 1;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.225rem;
+  line-height: 0;
+  padding-top: 0;
 }
 .map {
   position: relative;
