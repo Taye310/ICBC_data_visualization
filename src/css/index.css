@@ -514,9 +514,9 @@ header .showTime {
 .main_table tbody tr:nth-child(3),
 .main_table tbody tr:nth-child(5){
   width: 98%;
-  background-color: #084d9c;
-  box-shadow:-10px 0px 15px #084d9c inset,   /*左边阴影*/
-  10px 0px 15px #2C58A6 inset;   /*右边阴影*/
+  background-color: rgba(8, 77, 155, 0.5);
+  box-shadow:-10px 0px 15px rgb(8, 77, 156, 0.7) inset,   /*左边阴影*/
+  10px 0px 15px rgb(44, 88, 166, 0.7) inset;   /*右边阴影*/
 }
 
 @keyframes rotate1 {
