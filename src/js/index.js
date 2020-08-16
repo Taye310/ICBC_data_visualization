@@ -1215,37 +1215,49 @@ function afterHide(){
 (function(){
     var myChart = echarts.init(document.querySelector(".map .chart"));
     var points = [{
-        name: '',
+        name: '延庆',
         value: [115.974519, 40.457009]
     }, {
-        name: '',
+        name: '房山',
         value: [115.843267, 39.709144]
     }, {
-        name: '',
+        name: '丰台',
+        value: [116.143267, 39.822144]
+    }, {
+        name: '石景山',
+        value: [116.158267, 39.956144]
+    }, {
+        name: '海淀',
+        value: [116.178267, 40.086144]
+    },{
+        name: '朝阳',
+        value: [116.598267, 39.986144]
+    },{
+        name: '密云',
         value: [116.993177, 40.536834]
     }, {
-        name: '',
+        name: '门头沟',
         value: [115.843267, 40.009144]
     }, {
-        name: '',
+        name: '大兴',
         value: [116.443267, 39.629144]
     }, {
-        name: '',
+        name: '通州',
         value: [116.743267, 39.769144]
     }, {
-        name: '',
+        name: '顺义',
         value: [116.743267, 40.099144]
     }, {
-        name: '',
+        name: '平谷',
         value: [117.083267, 40.249144]
     }, {
-        name: '',
+        name: '怀柔',
         value: [116.553177, 40.386834]
     }, {
-        name: '',
+        name: '昌平',
         value: [116.253177, 40.236834]
     }, {
-        name: '',
+        name: '西城',
         value: [116.369177, 39.906834]
     }]
     var option = {
@@ -1300,12 +1312,15 @@ function afterHide(){
                 }
             }
         },
-        series: [{
+        series: [
+            //地图上的点效果
+            {
                 type: 'effectScatter',
                 coordinateSystem: 'geo',
                 showEffectOn: 'render',
+                symbolSize: 8,
                 rippleEffect: {
-                    period: 4,
+                    period: 5,
                     scale: 3,
                     brushType: 'fill'
                 },
@@ -1316,14 +1331,24 @@ function afterHide(){
                         position: 'right',
                         offset: [15, 0],
                         color: '#1DE9B6',
-                        show: true
+                        show: false
                     },
                 },
                 itemStyle: {
                     normal: {
-                        color: 'rgb(25, 216, 168, 0.6)',
                         shadowBlur: 10,
-                        shadowColor: '#333'
+                        shadowColor: '#333',
+                        color: function(params){
+                            if(params.name=='西城'){
+                                return 'rgb(255, 0, 0, 0.8)';
+                            }else if(params.name=='海淀' || params.name=='朝阳'){
+                                return 'rgb(201, 122, 4, 0.5)';
+                            }else if(params.name=='石景山' || params.name=='丰台'){
+                                return 'rgb(218, 214, 34, 0.5)';
+                            }else{
+                                return 'rgb(25, 216, 168, 0.5)';
+                            }
+                        }
                     }
                 },
                 data: points
@@ -1336,12 +1361,12 @@ function afterHide(){
                     period: 4, //箭头指向速度，值越小速度越快
                     trailLength: 0.02, //特效尾迹长度[0,1]值越大，尾迹越长重
                     symbol: 'arrow', //箭头图标
-                    symbolSize: 3, //图标大小
+                    symbolSize: 4, //图标大小
                 },
                 lineStyle: {
                     normal: {
-                        color: '#1DE9B6',
-                        width: 0.5, //线条宽度
+                        color: 'rgba(29, 233, 182, 0.6)',
+                        width: 0.3, //线条宽度
                         opacity: 0.5, //尾迹线条透明度
                         curveness: .3 //尾迹线条曲直度
                     }
@@ -1400,6 +1425,26 @@ function afterHide(){
                     coords: [
                         [116.369177, 39.906834],
                         [116.369177, 39.906834]
+                    ]
+                },{
+                    coords: [
+                        [116.369177, 39.906834],
+                        [116.143267, 39.822144]
+                    ]
+                },{
+                    coords: [
+                        [116.369177, 39.906834],
+                        [116.158267, 39.956144]
+                    ]
+                },{
+                    coords: [
+                        [116.369177, 39.906834],
+                        [116.178267, 40.086144]
+                    ]
+                },{
+                    coords: [
+                        [116.369177, 39.906834],
+                        [116.598267, 39.986144]
                     ]
                 }]
             },
