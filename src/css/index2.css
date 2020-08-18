@@ -149,6 +149,20 @@ header .showTime {
   margin-left: 6px;
   margin-right: 6px;
 }
+#text21 {
+  font-size: 18px;
+  color: rgba(255,255,255,0.7);
+  margin-top: -20px;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+#text22 {
+  font-size: 18px;
+  color: rgba(255,255,255,0.7);
+  margin-top: -20px;
+  margin-left: 6px;
+  margin-right: 6px;
+}
 .map {
   position: relative;
   height: 10.125rem;
