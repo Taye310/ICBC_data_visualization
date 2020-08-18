@@ -14,15 +14,40 @@ body {
 }
 header {
   position: relative;
-  height: 1rem;
+  height: 1.02rem;
   background: url(../images/head_bg2.png) no-repeat;
   background-size: 100% 100%;
 }
+.bnt {
+  width: 33%;
+}
+.bnt ul {
+  padding-top: 15px;
+  padding-left: 10%;
+  width: 100%
+}
+.bnt li {
+  background:url(../images/bnt.png) center;
+  font-size: 14px; 
+  line-height: 33px;
+  background-repeat: no-repeat;
+  width:18%; 
+  height:35px;
+  float: left; 
+  text-align: center; 
+  margin-left: 1%;
+  list-style-type: none
+}
+.bnt li a{ 
+  text-decoration: none; 
+  color: #fff;
+}
 header h1 {
-  font-size: 0.525rem;
+  width: 85%;
+  font-size: 0.555rem;
   color: #fff;
   text-align: center;
-  line-height: 1.15rem;
+  line-height: 0.65rem;
 }
 header .showTime {
   position: absolute;
@@ -105,7 +130,7 @@ header .showTime {
   line-height: 0.6rem;
   text-align: center;
   color: #fff;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 400;
 }
 .mainbox .panel h2 a {
@@ -271,19 +296,21 @@ header .showTime {
 	float: left;
 	width: 33%;
 	height: 37px;
-	line-height: 37px;
-	color: #fff;
-	overflow: hidden;
-	text-overflow:ellipsis
+  line-height: 37px;
+  font-size: 15px;
+	color: rgba(255,255,255,0.7);
+  overflow: hidden;
+  text-align: center;
+	text-overflow: ellipsis
 }
 .line2 .StateBox span:nth-child(1){
-  width: 15%;
+  width: 10%;
 }
 .line2 .StateBox span:nth-child(2){
 	width: 30%;
 }
 .line2 .StateBox span:nth-child(3){
-	width: 55%;
+	width: 60%;
 }
 .line2 .StateBox .fontInner{
   font-size: 15px;
@@ -317,7 +344,7 @@ header .showTime {
 }
 #FontScroll{
 	height: 210px;
-	overflow: hidden;
+  overflow: hidden;
 }
 .pie2 .perchart{
   height: 215px
@@ -387,13 +414,14 @@ header .showTime {
   transform: translate(-50%, -50%);
   background: url(../images/wangluo.png);
   opacity: 0.1;
+  zoom: 1.1;
   animation: rotate1 15s linear infinite;
   background-size: 100% 100%;
 }
 .map .map3 {
   position: absolute;
-  width: 7.075rem;
-  height: 7.075rem;
+  width: 8.775rem;
+  height: 8.775rem;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -409,7 +437,6 @@ header .showTime {
   width: 100%;
   height: 10.125rem;
 }
-
 .filterbg {
   width: 100%;
   height: 100%;
@@ -421,9 +448,6 @@ header .showTime {
   display: none;
 }
 .popup {
-  width: 0;
-  height: 0;
-  /* background: #33a5e7; */
   background: #061f3e;
   position: absolute;
   top: 50%;
@@ -452,20 +476,49 @@ header .showTime {
 .popup .popupClose:hover {
 	transform: rotate(180deg);
 }
-.summary{
-	width: 96%;
-	height: 92%;
-	margin: 2% auto;
-	display: none;
+.t_box{
+  width: 900px;
+  height: auto;
+  display: none;
+  background-size: 100% 100%;
+  position: relative;
+  margin: 50px auto;
 }
-.summary .summaryTop{
-	height: 50%;
+.main_table tr{
+  height: 42px;
 }
-.summaryPie{
-	height: 100%;
-	float: left;
-	width: 33%;
+.main_table{
+  width: 95%;
+  margin-top: 25px;
+  font-size: 16px;
+  margin: 0 auto;
 }
+.main_table table{
+  width: 100%;
+}
+.main_table thead tr{
+  height: 42px;
+}
+.main_table th{
+  font-size: 20px;
+  font-weight: 600;
+  color:#61d2f7;
+  text-align: center;
+}
+.main_table td{
+  color:#fff;
+  font-size: 14px;
+  text-align: center;
+}
+.main_table tbody tr:nth-child(1),
+.main_table tbody tr:nth-child(3),
+.main_table tbody tr:nth-child(5){
+  width: 98%;
+  background-color: rgba(8, 77, 155, 0.5);
+  box-shadow:-10px 0px 15px rgb(8, 77, 156, 0.7) inset,   /*左边阴影*/
+  10px 0px 15px rgb(44, 88, 166, 0.7) inset;   /*右边阴影*/
+}
+
 @keyframes rotate1 {
   from {
     transform: translate(-50%, -50%) rotate(0deg);

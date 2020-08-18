@@ -8,7 +8,13 @@
     </head>
     <body>
         <header>
-            <h1>实时数据监测</h1>
+            <div class="bnt">
+                <ul>
+                    <li><a href="index2.html">深层分析</a></li>
+                    <li><a class="messagebnt", href="javascript:;">消息提醒</a></li>
+                </ul>
+            </div>
+            <h1 class="tith1">实时数据监控</h1>
             <div class="showTime"></div>
             <script>
                 var t = null;
@@ -22,12 +28,15 @@
                     var h = dt.getHours();
                     var m = dt.getMinutes();
                     var s = dt.getSeconds();
+<<<<<<< HEAD
                     document.querySelector(".showTime").innerHTML = "当前时间：" + y + "年" + mt + "月" + day + "日-" + h + "时" + m + "分" + s +"秒";
+=======
+                    document.querySelector(".showTime").innerHTML = y + "年" + mt + "月" + day + "日-" + h + "时" + m + "分" + s +"秒";
+>>>>>>> wangkuo
                     t = setTimeout(time, 1000);
                 }
             </script>
         </header>
-
         <!--页面主体部分-->
         <section class="mainbox">
             <div class="column">
@@ -37,9 +46,7 @@
                     <div class="panel-footer"></div>
                 </div>
                 <div class="panel line1">
-                    <h2>
-                        各支行职工上岗率<a class="2020buttom", href="javascript:;">查看详情</a>
-                    </h2>
+                    <h2>各支行职工上岗率</h2>
                     <div id="chart21" class="chart"></div>
                     <div class="panel-footer"></div>
                 </div>
@@ -63,6 +70,7 @@
                             <li>2267/3129个ATM营业</li>
                         </ul>
                     </div>
+                    <div class="panel-footer"></div>
                 </div>
             </div>
             <div class="column">
@@ -73,12 +81,12 @@
                                 <div id="sskll1" class="sskll"></div>
                                 <script>
                                     var temp1 = Math.round(1000*Math.random())+10888;
-                                    var t1 = setTimeout(time1, 1000); //开始运行
+                                    var t1 = setTimeout(time1, 1500); //开始运行
                                     function time1(){
                                         clearTimeout(t1);
                                         temp1 = temp1 + Math.round(10*Math.random());
                                         document.getElementById("sskll1").innerHTML = temp1;
-                                        t1 = setTimeout(time1, 1000);
+                                        t1 = setTimeout(time1, 1500);
                                     }
                                 </script>
                             </li>
@@ -86,12 +94,12 @@
                                 <div id="ssjyl1" class="ssjyl"></div>
                                 <script>
                                     var temp2 = Math.round(100000*Math.random())+234143;
-                                    var t2 = setTimeout(time2, 500); //开始运行
+                                    var t2 = setTimeout(time2, 800); //开始运行
                                     function time2(){
                                         clearTimeout(t2);
                                         temp2 = temp2 + Math.round(1000*Math.random());
                                         document.getElementById("ssjyl1").innerHTML = temp2;
-                                        t2 = setTimeout(time2, 500);
+                                        t2 = setTimeout(time2, 800);
                                     }
                                 </script>
                             </li>
@@ -273,6 +281,7 @@
                             </div>
                         </div>
                     </div>
+                    <div class="panel-footer"></div>
                 </div>
                 <div class="panel pie1">
                     <h2>风险统计</h2>
@@ -294,15 +303,57 @@
 							</ul>
 							<div id="indicatorContainer"></div>
 						</div>
-					</div>
+                    </div>
+                    <div class="panel-footer"></div>
                 </div>
             </div>
             <div class="filterbg"></div>
             <div class="popup">
                 <a href="javascript:;" class="popupClose"></a>
-                <div class="summary">统计详情
-                    <div class="summaryTop">
-                        <div id="summaryPie1" class="summaryPie"></div>
+                <div class="t_box">
+                    <div class="main_table t_btn8">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>支行</th>
+                                <th>异常</th>
+                                <th>时间</th>
+                                <th>建议</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>航天支行</td>
+                                <td>上岗率过低，为78%</td>
+                                <td>2020-8-20T10:21:37</td>
+                                <td>重申出勤纪律，强调按时出勤</td>
+                            </tr>
+                            <tr>
+                                <td>朝阳支行</td>
+                                <td>自助机具现金使用率过高，为68%</td>
+                                <td>2020-8-20T16:51:26</td>
+                                <td>提高自助机具日常现金储备，预防现金不够用</td>
+                            </tr>
+                            <tr>
+                                <td>中关村支行</td>
+                                <td>自助机具现金使用率过高，为60%</td>
+                                <td>2020-8-20T18:12:32</td>
+                                <td>提高自助机具日常现金储备，预防现金不够用</td>
+                            </tr>
+                            <tr>
+                                <td>东风支行</td>
+                                <td>出现一起风险事件</td>
+                                <td>2020-8-18T15:19:33</td>
+                                <td>增开柜台窗口，降低柜员人均服务客户数</td>
+                            </tr>
+                            <tr>
+                                <td>海淀支行</td>
+                                <td>人均柜台等待时间过长，为23min</td>
+                                <td>2020-8-18T10:51:57</td>
+                                <td>增开柜台窗口，提高服务效率</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
