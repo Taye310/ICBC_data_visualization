@@ -317,7 +317,7 @@
             axisLabel: {
                 textStyle: {
                     color: '#999',
-                    fontSize: 12
+                    fontSize: 10
                 }
             }
         },
@@ -390,7 +390,7 @@
                 }
             },
             data: [99.5, 99, 88, 85, 81, 77, 65, 61.5],
-            z: 20
+            z: 10
         }]
     };
     myChart.setOption(option);
@@ -411,7 +411,7 @@
         xAxis: [{
             type: 'category',
             color: '#59588D',
-            data: ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8'],
+            data: ['天桥', '东长安街', '东四', '北三环', '玉泉路', '上地', '西三旗', '四季青'],
             axisLabel: {
                 margin: 10,
                 color: '#999',
