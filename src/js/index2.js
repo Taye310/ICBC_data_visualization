@@ -296,7 +296,104 @@
 // chart21
 (function(){
     var myChart = echarts.init(document.getElementById('chart21'));
-    var option = null;
+    var option = {
+        grid: {
+            left: '5%',
+            top: '10%',
+            bottom: '10%',
+            right: '3%'
+        },
+        xAxis: {
+            data: ['正阳门', '王府井金街', '北苑站', '潞通大街', '绿城', '东风', '延庆东街', '新平东路'],
+            axisTick: {
+                show: false
+            },
+            axisLine: {
+                lineStyle: {
+                    color: 'rgba(255, 129, 109, 0.1)',
+                    width: 1 //这里是为了突出显示加上的
+                }
+            },
+            axisLabel: {
+                textStyle: {
+                    color: 'rgba(255,255,255,0.7)',
+                    fontSize: 13
+                }
+            }
+        },
+        yAxis: [{
+            splitNumber: 2,
+            axisTick: {
+                show: false
+            },
+            axisLine: {
+                lineStyle: {
+                    color: 'rgba(255, 129, 109, 0.1)',
+                    width: 1 //这里是为了突出显示加上的
+                }
+            },
+            axisLabel: {
+                textStyle: {
+                    color: 'rgba(255,255,255,0.7)',
+                    fontSize: 14
+                }
+            },
+            splitArea: {
+                areaStyle: {
+                    color: 'rgba(255,255,255,.5)'
+                }
+            },
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    color: 'rgba(255, 129, 109, 0.1)',
+                    width: 0.5,
+                    type: 'dashed'
+                }
+            }
+        }
+        ],
+        series: [{
+            name: 'hill',
+            type: 'pictorialBar',
+            barCategoryGap: '0%',
+            symbol: 'path://M0,10 L10,10 C5.5,10 5.5,5 5,0 C4.5,5 4.5,10 0,10 z',
+            label: {
+                show: true,
+                position: 'top',
+                distance: 1,
+                color: '#DB5E6A',
+                fontWeight: 'bolder',
+                fontSize: 15,
+            },
+            itemStyle: {
+                normal: {
+                    color: {
+                        type: 'linear',
+                        x: 0,
+                        y: 0,
+                        x2: 0,
+                        y2: 1,
+                        colorStops: [{
+                            offset: 0,
+                            color: 'rgba(232, 94, 106, 1)' //  0%  处的颜色
+                        },
+                        {
+                            offset: 1,
+                            color: 'rgba(20, 150, 150, .8)' //  100%  处的颜色
+                        }
+                        ],
+                        global: false //  缺省为  false
+                    }
+                },
+                emphasis: {
+                    opacity: 1
+                }
+            },
+            data: [99.5, 99, 88, 85, 81, 77, 65, 61.5],
+            z: 10
+        }]
+    };
     myChart.setOption(option);
     window.addEventListener('resize', function() {
         myChart.resize();
@@ -305,7 +402,121 @@
 // chart22
 (function(){
     var myChart = echarts.init(document.getElementById('chart22'));
-    var option = null;
+    var option = {
+        grid: {
+            top: '30',
+            right: '10',
+            left: '30',
+            bottom: '30' //图表尺寸大小
+        },
+        xAxis: [{
+            type: 'category',
+            color: '#59588D',
+            data: ['天桥', '东长安街', '东四', '北三环', '玉泉路', '上地', '西三旗', '四季青'],
+            axisLabel: {
+                margin: 10,
+                color: '#999',
+                textStyle: {
+                    color: 'rgba(255,255,255,.7)',
+                    fontSize: 13
+                },
+            },
+            axisLine: {
+                lineStyle: {
+                    color: 'rgba(107,107,107,0.37)',
+                }
+            },
+            axisTick: {
+                show: false
+            },
+        }],
+        yAxis: [{
+            axisLabel: {
+                formatter: '{value}',
+                color: 'rgba(255,255,255,.7)',
+                textStyle: {
+                    fontSize: 14
+                },
+            },
+            axisLine: {
+                lineStyle: {
+                    color: 'rgba(107,107,107,0.37)',
+                }
+            },
+            axisTick: {
+                show: false
+            },
+            splitLine: {
+                lineStyle: {
+                    color: 'rgba(131,101,101,0.2)',
+                    type: 'dashed',
+                }
+            }
+        }],
+        series: [{
+            type: 'bar',
+            data: [25, 30, 39, 40, 16, 36, 27, 28],
+            barWidth: '16px',
+            itemStyle: {
+                normal: {
+                    color: function(params) { //展示正值的柱子，负数设为透明
+                        let colorArr = params.value > 0 ? ['#55d1ff', '#2d82ff'] : ['rgba(0,0,0,0)', 'rgba(0,0,0,0)']
+                        return new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: colorArr[0] // 0% 处的颜色
+                        }, {
+                            offset: 1,
+                            color: colorArr[1] // 100% 处的颜色
+                        }], false)
+                    },
+                    barBorderRadius: [30, 30, 0, 0] //圆角大小
+                },
+            },
+            label: {
+                normal: {
+                    show: true,
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                    color: '#fff',
+                    position: 'top',
+                }
+            }
+        }, {
+            data: [4*7, 4*7, 5*7, 5*7, 2*7, 5*7, 3*7, 3*7],
+            type: 'line',
+            smooth: true,
+            name: '折线图',
+            symbol: 'none',
+            lineStyle: {
+                color: '#3275FB',
+                width: 3,
+                shadowColor: 'rgba(0, 0, 0, 0.3)', //设置折线阴影
+                shadowBlur: 10,
+                shadowOffsetY: 10,
+            },
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(
+                        0,
+                        0,
+                        0,
+                        1,
+                        [{
+                                offset: 0,
+                                color: 'rgba(73, 86, 255, 0.5)',
+
+                            },
+                            {
+                                offset: 1,
+                                color: 'rgba(255, 255, 255, 0.1)',
+                            }
+                        ],
+                        false
+                    ),
+                }
+            },
+        }]
+    };
     myChart.setOption(option);
     window.addEventListener('resize', function() {
         myChart.resize();

@@ -392,6 +392,7 @@ header .showTime {
 .map {
   position: relative;
   height: 10.125rem;
+  zoom: 0.93
 }
 .map .map1 {
   position: absolute;
@@ -414,7 +415,6 @@ header .showTime {
   transform: translate(-50%, -50%);
   background: url(../images/wangluo.png);
   opacity: 0.1;
-  zoom: 1.1;
   animation: rotate1 15s linear infinite;
   background-size: 100% 100%;
 }

@@ -149,6 +149,20 @@ header .showTime {
   margin-left: 6px;
   margin-right: 6px;
 }
+#text21 {
+  font-size: 19px;
+  color: rgba(255,255,255,0.7);
+  margin-top: 10px;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+#text22 {
+  font-size: 19px;
+  color: rgba(255,255,255,0.7);
+  margin-top: 10px;
+  margin-left: 6px;
+  margin-right: 6px;
+}
 .map {
   position: relative;
   height: 10.125rem;
@@ -160,7 +174,7 @@ header .showTime {
   top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: url(../images/diqiu.png);
+  /* background: url(../images/diqiu.png); */
   opacity: 0.1;
   zoom: 1.2;
   background-size: 100% 100%;
@@ -172,7 +186,7 @@ header .showTime {
   top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: url(../images/wangluo.png);
+  /* background: url(../images/wangluo.png); */
   opacity: 0.1;
   animation: rotate1 15s linear infinite;
   background-size: 100% 100%;
@@ -184,7 +198,7 @@ header .showTime {
   top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: url(../images/wangluo2.png);
+  /* background: url(../images/wangluo2.png); */
   opacity: 0.1;
   zoom: 1.2;
   animation: rotate2 6s linear infinite;
